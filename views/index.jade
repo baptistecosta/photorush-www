@@ -1,0 +1,12 @@
+doctype html
+html(ng-app="PhotoRush")
+  head
+    title= PhotoRush
+    script(src="/javascripts/angular.js")
+    script(src="/javascripts/jquery-2.1.0.js")
+    script(src="/javascripts/bootstrap.js")
+    link(rel="stylesheet", href="/stylesheets/bootstrap.css")
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    div(class="container")
+      div(ng-view)
