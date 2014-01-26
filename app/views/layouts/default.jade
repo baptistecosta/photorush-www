@@ -1,0 +1,17 @@
+doctype html
+html(ng-app='PhotoRushApp')
+	head
+		title PhotoRush
+		script(type='application/javascript' src='/javascripts/libs/angular.js')
+		script(type='application/javascript' src='/javascripts/libs/angular-resource.js')
+		script(type='application/javascript' src='/javascripts/libs/angular-route.js')
+		script(type='application/javascript' src='/javascripts/libs/jquery-2.1.0.js')
+		script(type='application/javascript' src='/javascripts/libs/bootstrap.js')
+		script(type='application/javascript' src='/javascripts/client.js')
+		script(type='application/javascript' src='/javascripts/controllers/pixes.js')
+		link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		.container
+			include ../includes/menu
+			block content

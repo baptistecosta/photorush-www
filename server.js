@@ -3,7 +3,7 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
+var routes = require('./config/routes');
 var http = require('http');
 var path = require('path');
 
@@ -12,11 +12,11 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
 //app.set('view cache', true);
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app/views'));
 
 // Jade
 app.set('view engine', 'jade');
-// Html
+//Html
 //app.set('view engine', 'html');
 //app.engine('html', require('ejs').renderFile);
 
@@ -35,6 +35,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/pixes', routes.index);
+app.get('/pixes.html', routes.index);
 
 http.createServer(app).listen(app.get('port'), function () {
 	console.log('Express server listening on port ' + app.get('port'));
