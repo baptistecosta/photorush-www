@@ -14,11 +14,34 @@ angular.module("PhotoRushApp", [
 	}).otherwise({
 		redirectTo: "/home"
 	});
+}).directive({
+	bcFileModel: function($parse) {
+		return {
+			restrict: "A",
+			link: function(scope, element, attrs) {
+				var model = $parse(attrs.bcFileModel);
+				var modelSetter = model.assign;
+				element.bind("change", function() {
+					scope.$apply(function() {
+						modelSetter(scope, element[0].files[0]);
+					})
+				});
+			}
+		}
+	}
 }).factory({
 	PixFactory: function($http) {
 		return {
 			get: function() {
 				return $http.get("http://localhost:3030/pixes");
+			},
+			add: function(file) {
+				var fd = new FormData();
+				fd.append("file", file);
+				return $http.post("http://localhost:3030/pix", fd, {
+					transformRequest: angular.identity,
+					headers: {'Content-Type': undefined}
+				});
 			}
 		};
 	},
@@ -46,7 +69,13 @@ angular.module("PhotoRushApp", [
 		});
 
 		$scope.add = function() {
-			console.log($scope.pix);
+//			PixFactory.add($scope.pix).success(function(res) {
+//				console.log(res);
+//			});
+			var file = $scope.picture;
+			PixFactory.add(file).success(function(res) {
+				console.log(res);
+			});
 		};
 	}
 });

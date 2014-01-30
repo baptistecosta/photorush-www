@@ -1,0 +1,27 @@
+<h1>Pixes</h1>
+<table class="table">
+	<thead>
+	<tr>
+		<th>ID</th>
+		<th>Author</th>
+		<th>Locale</th>
+		<th>Date</th>
+		<th>Correct answer</th>
+		<th>Trap answer 1</th>
+		<th>Trap answer 2</th>
+		<th>Trap answer 3</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="pix in pixes">
+			<td>{{pix.id}}</td>
+			<td><a href="#/users/get/{{pix.user.id}}">{{pix.user.username}}</a></td>
+			<td>{{pix.locale}}</td>
+			<td>{{pix.date}}</td>
+			<td>{{pix.correct_answer}}</td>
+			<td>{{pix.trap_answer_1}}</td>
+			<td>{{pix.trap_answer_2}}</td>
+			<td>{{pix.trap_answer_3}}</td>
+		</tr>
+	</tbody>
+</table>
