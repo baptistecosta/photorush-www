@@ -63,9 +63,18 @@ angular.module("PhotoRushApp", [
 		});
 	},
 	PixAddController: function($scope, PixFactory, PixCategoryFactory) {
+		$scope.pix = {};
+		$scope.locales = [
+			{value: "fr", text: "French"},
+			{value: "en", text: "English"},
+			{value: "ww", text: "World wide"}
+		];
+		$scope.pix.locale = $scope.locales[0].value;
+
 		PixCategoryFactory.get().then(function(res) {
 			console.log(res);
 			$scope.pixCategories = res.data.pixCategories;
+			$scope.pix.category = $scope.pixCategories[0].id;
 		});
 
 		$scope.add = function() {

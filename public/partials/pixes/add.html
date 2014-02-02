@@ -1,42 +1,73 @@
 <h2>Add pix</h2>
-<input name="user_id" type="hidden">
-<div class="form-group">
-	<label>Locale</label>
-	<select name="locale" class="form-control" ng-model="pix.locale">
-		<option value="en">English</option>
-		<option value="fr">Français</option>
-		<option value="ww">World wide</option>
-	</select>
-</div>
-
-<div class="form-group">
-	<label>Categories</label>
-	<select name="category_id" class="form-control" ng-model="pix.category_id">
-		<option data-ng-repeat="pixCategory in pixCategories" value="{{pixCategory.id}}">{{pixCategory.fr}}</option>
-	</select>
-</div>
-
-<div class="form-group">
-	<label>Correct answer</label>
-	<input name="correct_answer" type="text" class="form-control" ng-model="pix.correct_answer">
-</div>
-
-<div class="form-group">
-	<label>Trap answers</label>
-	<input name="trap_answer_1" type="text" class="form-control" ng-model="pix.trap_answer_1">
-</div>
-<div class="form-group">
-	<input name="trap_answer_2" type="text" class="form-control" ng-model="pix.trap_answer_2">
-</div>
-<div class="form-group">
-	<input name="trap_answer_3" type="text" class="form-control" ng-model="pix.trap_answer_3">
-</div>
-
-<div class="form-group">
-	<label>Picture</label>
-	<input type="file" name="picture" bc-file-model="picture">
-</div>
-
-<div class="form-group">
-	<button class="btn btn-primary" ng-click="add()">Ajouter</button>
-</div>
+<form novalidate
+	  name="pixForm"
+	  class="simple-form">
+	<input name="user_id" type="hidden">
+	<div class="form-group">
+		<label>Locale</label>
+		<select class="form-control"
+				ng-model="pix.locale"
+				ng-options="l.value as l.text for l in locales"
+				required>
+		</select>
+		<br>Selected: {{pix.locale}}
+	</div>
+	<div class="form-group">
+		<label>Categories</label>
+		<select class="form-control"
+				ng-model="pix.category"
+				ng-options="c.id as c.fr for c in pixCategories"
+				required>
+		</select>
+		<br>Selected: {{pix.category}}
+	</div>
+	<div class="form-group"
+		 ng-class="{'has-error': pixForm.correct_answer.$dirty && pixForm.correct_answer.$invalid}">
+		<label>Correct answer</label>
+		<input name="correct_answer"
+			   type="text"
+			   class="form-control"
+			   ng-model="pix.correct_answer"
+			   placeholder="Correct answer *"
+			   ng-maxlength="50"
+			   required>
+		<p class="help-block" ng-show="pixForm.correct_answer.$dirty && pixForm.correct_answer.$invalid && pixForm.correct_answer.$error.required">Correct answer is required.</p>
+		<p class="help-block" ng-show="pixForm.correct_answer.$error.maxlength">50 characters max.</p>
+		</p>
+	</div>
+	<div class="form-group">
+		<label>Trap answers</label>
+		<input name="trap_answer_1"
+			   type="text"
+			   class="form-control"
+			   ng-model="pix.trap_answer_1"
+			   placeholder="Trap answer 1">
+	</div>
+	<div class="form-group">
+		<input name="trap_answer_2"
+			   type="text"
+			   class="form-control"
+			   ng-model="pix.trap_answer_2"
+			   placeholder="Trap answer 2">
+	</div>
+	<div class="form-group">
+		<input name="trap_answer_3"
+			   type="text"
+			   class="form-control"
+			   ng-model="pix.trap_answer_3"
+			   placeholder="Trap answer 3">
+	</div>
+	<div class="form-group">
+		<label>Picture</label>
+		<input type="file"
+			   name="picture"
+			   bc-file-model="picture">
+	</div>
+	<div class="form-group">
+		<button class="btn btn-primary"
+				ng-click="add()"
+				ng-disabled="pixForm.$invalid">
+			Ajouter
+		</button>
+	</div>
+</form>
