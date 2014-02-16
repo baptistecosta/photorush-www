@@ -33,7 +33,7 @@ angular.module("PhotoRushApp", [
 	PixFactory: function($http) {
 		return {
 			get: function() {
-				return $http.get("http://localhost:3030/pixes");
+				return $http.get("https://127.0.0.1/pix");
 			},
 			add: function(file) {
 				var fd = new FormData();
