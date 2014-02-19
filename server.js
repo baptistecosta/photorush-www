@@ -1,11 +1,11 @@
 /**
  * Module dependencies.
  */
-
-var express = require('express');
-var routes = require('./config/routes');
-var http = require('http');
-var path = require('path');
+var express = require('express'),
+	routes = require('./config/routes'),
+	http = require('http'),
+	path = require('path'),
+	io = require('socket.io');
 
 //var app = express();
 var app = exports.app = express();
@@ -39,6 +39,13 @@ app.get('/', routes.index);
 app.get('/pixes', routes.index);
 app.get('/pixes.html', routes.index);
 
-http.createServer(app).listen(app.get("port"), function () {
+var server = http.createServer(app);
+server.listen(app.get("port"), function () {
 	console.log("PhotoRush Www server listening on port " + app.get("port"));
+});
+
+io = io.listen(server);
+io.sockets.on('connection', function(socket) {
+	socket.emit('welcome', {msg: 'Welcome client!'});
+	socket.on('clientEvent', console.log);
 });
