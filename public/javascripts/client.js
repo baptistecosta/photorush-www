@@ -35,10 +35,11 @@ angular.module("PhotoRushApp", [
 			get: function() {
 				return $http.get("https://127.0.0.1/pix");
 			},
-			add: function(file) {
+			add: function(pix) {
 				var fd = new FormData();
-				fd.append("file", file);
-				return $http.post("http://localhost:3030/pix", fd, {
+				fd.append('data', angular.toJson(pix.data));
+				fd.append('file', pix.picture);
+				return $http.post("https://127.0.0.1/pix", fd, {
 					transformRequest: angular.identity,
 					headers: {'Content-Type': undefined}
 				});
@@ -48,7 +49,7 @@ angular.module("PhotoRushApp", [
 	PixCategoryFactory: function($http) {
 		return {
 			get: function() {
-				return $http.get("http://localhost:3030/pixCategories");
+				return $http.get("https://127.0.0.1/pix_category");
 			}
 		}
 	}
@@ -63,26 +64,27 @@ angular.module("PhotoRushApp", [
 		});
 	},
 	PixAddController: function($scope, PixFactory, PixCategoryFactory) {
-		$scope.pix = {};
+		$scope.pix = {
+			data: {}
+		};
 		$scope.locales = [
 			{value: "fr", text: "French"},
 			{value: "en", text: "English"},
 			{value: "ww", text: "World wide"}
 		];
-		$scope.pix.locale = $scope.locales[0].value;
+		$scope.pix.data.locale = $scope.locales[0].value;
 
 		PixCategoryFactory.get().then(function(res) {
 			console.log(res);
 			$scope.pixCategories = res.data.pixCategories;
-			$scope.pix.category = $scope.pixCategories[0].id;
+			$scope.pix.data.category = $scope.pixCategories[0].id;
 		});
 
 		$scope.add = function() {
 //			PixFactory.add($scope.pix).success(function(res) {
 //				console.log(res);
 //			});
-			var file = $scope.picture;
-			PixFactory.add(file).success(function(res) {
+			PixFactory.add($scope.pix).success(function(res) {
 				console.log(res);
 			});
 		};

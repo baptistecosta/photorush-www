@@ -4,8 +4,8 @@
 var express = require('express'),
 	routes = require('./config/routes'),
 	http = require('http'),
-	path = require('path'),
-	io = require('socket.io');
+	path = require('path');
+//	io = require('socket.io');
 
 //var app = express();
 var app = exports.app = express();
@@ -44,8 +44,10 @@ server.listen(app.get("port"), function () {
 	console.log("PhotoRush Www server listening on port " + app.get("port"));
 });
 
+/*
 io = io.listen(server);
 io.sockets.on('connection', function(socket) {
 	socket.emit('welcome', {msg: 'Welcome client!'});
 	socket.on('clientEvent', console.log);
 });
+*/
